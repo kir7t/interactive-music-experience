@@ -1,0 +1,45 @@
+/* StarrySkyBackground.css */
+
+#starry_sky_background {
+  width: 100%;
+  height: 100%; /* 親要素いっぱいに広がる */
+  position: fixed; /* 画面全体を覆うように固定 */
+  top: 0;
+  left: 0;
+  z-index: -1; /* 他のコンテンツの背面に配置 */
+  overflow: hidden; /* 星がはみ出さないように */
+  /* 背景グラデーションはグローバルのbodyに適用されているものを活かすか、
+     ここで再定義するか検討。ここではグローバルを活かす想定。 */
+}
+
+.star {
+  background-color: white;
+  position: absolute; /* #starry_sky_background 内で絶対配置 */
+  border-radius: 50%;
+  animation-name: twinkle-starry-sky; /* アニメーション名を変更して競合を避ける */
+  animation-iteration-count: infinite;
+  opacity: 0; /* 初期状態は透明にして、animation-delay後に表示 */
+  animation-fill-mode: forwards; /* アニメーション終了後も最後の状態を維持 */
+}
+
+
+@keyframes twinkle-starry-sky { /* アニメーション名を変更 */
+  0% {
+    opacity: 0;
+    transform: scale(0.2);
+  }
+  20% { /* 少し時間をかけて表示 */
+    opacity: 1;
+  }
+  50% {
+    transform: scale(0.5); /* スケール変化を少し穏やかに */
+    opacity: 0.8;
+  }
+  80% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+    transform: scale(0.2);
+  }
+}

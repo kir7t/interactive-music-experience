@@ -1,38 +1,67 @@
 .App {
   text-align: center;
-}
-
-.App-logo {
-  height: 40vmin;
-  pointer-events: none;
-}
-
-@media (prefers-reduced-motion: no-preference) {
-  .App-logo {
-    animation: App-logo-spin infinite 20s linear;
-  }
-}
-
-.App-header {
-  background-color: #282c34;
-  min-height: 100vh;
-  display: flex;
+  width: 100%;
+  display: flex; /* App自体もflexにしてcontainerを中央に */
   flex-direction: column;
   align-items: center;
-  justify-content: center;
-  font-size: calc(10px + 2vmin);
-  color: white;
+  justify-content: flex-start; /* 上寄せ */
+  flex-grow: 1; /* 利用可能なスペースを埋める */
 }
 
-.App-link {
-  color: #61dafb;
+.App > .container {
+    position: relative;
+    width: 95%;
+    max-width: 900px; /* 最大幅 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    /* margin: 0 auto; なくてもAppのalign-itemsで中央寄せ */
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.App header {
+    margin-bottom: 20px;
+    width: 100%;
+}
+
+.App h1 {
+    font-size: clamp(2em, 6vw, 3.5em);
+    color: #d0d0ff;
+    text-shadow: 0 0 8px #a0a0ff, 0 0 15px #a0a0ff;
+    font-weight: 500;
+    margin-bottom: 0.2em;
+}
+
+.App p {
+    font-size: clamp(0.9em, 3vw, 1.2em);
+    color: #b0b0dd;
+    margin-top: 0;
+}
+
+.canvas-container {
+    width: 100%; /* PianoCanvasComponentのwidth: 100%の基準 */
+    /* 高さはPianoCanvasComponent側で設定されるか、ここで明示的に設定 */
+    /* 例: height: 60vh; */
+    /* ただし、今回はPianoCanvasComponentに直接高さを指定する */
+}
+
+/* PianoCanvasComponentのスタイル */
+#pianoCanvasComponent {
+  display: block;
+  border-radius: 10px;
+  box-shadow: 0 0 25px rgba(120, 120, 255, 0.35);
+  background: transparent;
+  touch-action: none;
+
+  /* --- CSSでCanvasのサイズを指定 --- */
+  width: 100%; /* 親要素(.canvas-container)の幅いっぱい */
+  
+  /* 高さを指定 (例: 画面の高さの60%程度、ただしヘッダー分を考慮) */
+  /* JavaScriptで動的に高さを設定していた部分をCSSで実現するなら、
+     このような固定値やvhを使うことになる。
+     より複雑なレスポンシブな高さが必要な場合は、元のJSによる高さ計算の方が良い。
+     ここでは例として固定的なアプローチを示す。 */
+  height: clamp(200px, 60vh, 500px); /* 最小200px, 基本60vh, 最大500px */
+  /* 注意: このCSSでの高さ指定は、setupCanvas内のavailableWindowHeightの計算と
+     重複または競合する可能性があるため、JS側でのcanvas.style.height設定を
+     完全に削除することが前提。 */
 }
