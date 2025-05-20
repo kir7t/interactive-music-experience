@@ -65,3 +65,93 @@
      重複または競合する可能性があるため、JS側でのcanvas.style.height設定を
      完全に削除することが前提。 */
 }
+
+/* src/App.css */
+/* ... (既存のスタイル) ... */
+
+/* src/App.css */
+/* ... (既存のスタイル) ... */
+
+.play-melody-button {
+  display: inline-flex; /* アイコンとテキストを横並びにするため */
+  align-items: center; /* アイコンとテキストを垂直方向中央揃え */
+  justify-content: center; /* ボタン内のコンテンツを中央揃え */
+  
+  background: linear-gradient(145deg, #a1a1ff, #87CEFA); /* 淡い水色から薄紫へのグラデーション */
+  color: white;
+  border: none;
+  padding: 10px 22px; /* パディングを少し調整 */
+  border-radius: 50px; /* より丸みのある形 */
+  font-family: 'EB Garamond', serif; /* サイト全体のフォントと合わせる */
+  font-size: clamp(0.9em, 2.8vw, 1.1em); /* レスポンシブフォントサイズ */
+  font-weight: 500; /* 少し太字に */
+  cursor: pointer;
+  margin-top: 20px; /* 上の要素とのマージン */
+  transition: all 0.3s ease; /* スムーズなトランジション */
+  box-shadow: 0 4px 12px rgba(100, 100, 200, 0.3), /* 淡い影 */
+              inset 0 1px 2px rgba(255, 255, 255, 0.4); /* 内側のハイライト */
+  text-shadow: 0 1px 2px rgba(0, 0, 50, 0.2); /* テキストにわずかな影 */
+  position: relative; /* ::before, ::after 擬似要素のため */
+  overflow: hidden; /* 擬似要素がはみ出ないように */
+}
+
+.play-melody-button .button-icon {
+  margin-right: 8px; /* アイコンとテキストの間隔 */
+  font-size: 1em; /* アイコンのサイズをテキストに合わせる */
+  line-height: 1; /* アイコンの行の高さを調整 */
+}
+
+/* ホバー時のエフェクト */
+.play-melody-button:hover {
+  background: linear-gradient(145deg, #b3b3ff, #9BdFFB); /* 少し明るいグラデーション */
+  box-shadow: 0 6px 16px rgba(100, 100, 200, 0.4),
+              inset 0 1px 3px rgba(255, 255, 255, 0.5);
+  transform: translateY(-2px); /* 少し浮き上がる */
+}
+
+/* アクティブ（クリック中）のエフェクト */
+.play-melody-button:active {
+  background: linear-gradient(145deg, #8a8aff, #7ac0e2); /* 少し暗いグラデーション */
+  box-shadow: 0 2px 8px rgba(100, 100, 200, 0.3),
+              inset 0 2px 4px rgba(0, 0, 0, 0.1);
+  transform: translateY(0px); /* 元の位置に戻る */
+}
+
+/* キラキラエフェクト (オプション) */
+.play-melody-button::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  background: rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  transform: translate(-50%, -50%);
+  opacity: 0;
+  transition: width 0.4s ease, height 0.4s ease, opacity 0.4s ease;
+}
+
+.play-melody-button:hover::before {
+  width: 200%; /* ボタンを覆うように広がる */
+  height: 200%;
+  opacity: 1;
+  transition: width 0.6s ease-out, height 0.6s ease-out, opacity 0.6s ease-out; /* ゆっくり広がる */
+  animation: sparkle-effect 1.5s infinite alternate ease-in-out 0.3s; /* ホバー中も微かに変化 */
+}
+
+@keyframes sparkle-effect {
+  0% {
+    opacity: 0.1;
+    transform: translate(-50%, -50%) scale(0.9);
+  }
+  100% {
+    opacity: 0.3;
+    transform: translate(-50%, -50%) scale(1.1);
+  }
+}
+
+/* 演奏中のスタイル（例：アイコンの色を変えるなど）*/
+.play-melody-button.playing .button-icon { /* isPlayingMelody が true の時に .playing クラスを付与する必要あり */
+  color: #FFD700; /* 例：金色 */
+}
